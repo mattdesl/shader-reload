@@ -1,0 +1,69 @@
+{
+  "name": "shader-reload",
+  "version": "1.0.0",
+  "description": "A few tools for GLSL shader reloading at runtime.",
+  "main": "./wrapper.js",
+  "license": "MIT",
+  "author": {
+    "name": "Matt DesLauriers",
+    "email": "dave.des@gmail.com",
+    "url": "https://github.com/mattdesl"
+  },
+  "dependencies": {
+    "budo": "^10.0.4",
+    "glslify": "^6.1.0",
+    "jsesc": "^2.5.1",
+    "pumpify": "^1.3.5",
+    "static-module": "^2.0.0",
+    "through": "^2.3.8"
+  },
+  "semistandard": {
+    "globals": [
+      "THREE"
+    ]
+  },
+  "bin": {
+    "glsl-server": "./bin/dev.js"
+  },
+  "devDependencies": {
+    "glsl-noise": "0.0.0",
+    "perspective-camera": "^2.0.1",
+    "primitive-icosphere": "^1.0.2",
+    "primitive-plane": "^2.0.0",
+    "regl": "^1.3.0",
+    "semistandard": "^11.0.0",
+    "three": "^0.89.0"
+  },
+  "scripts": {
+    "example-three": "glsl-server example/three.js",
+    "example-regl": "glsl-server example/regl.js"
+  },
+  "keywords": [
+    "shader",
+    "glsl",
+    "glslify",
+    "editor",
+    "dev",
+    "ux",
+    "dx",
+    "reload",
+    "live",
+    "edit",
+    "update",
+    "hot",
+    "module",
+    "replacement",
+    "shader",
+    "webgl",
+    "threejs",
+    "three"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mattdesl/shader-reload.git"
+  },
+  "homepage": "https://github.com/mattdesl/shader-reload",
+  "bugs": {
+    "url": "https://github.com/mattdesl/shader-reload/issues"
+  }
+}
