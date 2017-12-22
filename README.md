@@ -96,7 +96,7 @@ const mesh = new THREE.Mesh(geometry, material);
 ...
 ```
 
-The examples include a [LiveShaderMaterial](./example/material/LiveShaderMaterial.js) which is a bit more robust for large applications.
+The examples include a [LiveShaderMaterial](./example/materials/LiveShaderMaterial.js) which is a bit more robust for large applications.
 
 ### Development Tool
 
