@@ -15,7 +15,7 @@ camera.lookAt(new THREE.Vector3());
 camera.updateProjectionMatrix();
 
 const scene = new THREE.Scene();
-const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.5, 64), material);
+const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.5, 64), material.clone());
 scene.add(mesh);
 
 window.requestAnimationFrame(render);

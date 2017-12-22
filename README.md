@@ -96,6 +96,8 @@ const mesh = new THREE.Mesh(geometry, material);
 ...
 ```
 
+The examples include a [LiveShaderMaterial](./example/material/LiveShaderMaterial.js) which is a bit more robust for large applications.
+
 ### Development Tool
 
 For this to be used, you will need a development server like [budo](https://www.npmjs.com/package/budo). You will need to use WebSockets to communicate to the client-side code.
@@ -138,6 +140,25 @@ The same goes for requiring `glslify`.
 ## Production Bundling
 
 During production or when publishing the source to a non-development environment (i.e. without WebSockets), simply omit the `shader-reload` transform. Shaders will not change after construction.
+
+## API Doc
+
+#### `shader = require('reload-shader')(shaderSource)`
+
+Pass in a `shaderSource` with `{ vertex, fragment }` strings, and the `Shader` emitter returned will contain the following:
+
+```js
+shader.vertex   // the latest vertex source
+shader.fragment // the latest fragment source
+shader.version  // an integer, starts at 0, increased with each change
+shader.on('touch', fn)  // file was touched by fs file watcher
+shader.on('change', fn) // vertex or fragment source was changed
+```
+
+#### `require('reload-shader/receiver').on('touch', fn)`
+#### `require('reload-shader/receiver').on('change', fn)`
+
+This event is triggered after all shaders have been updated, allowing you to react to the event application-wide instead of on a per-shader basis.
 
 ## Running from Source
 

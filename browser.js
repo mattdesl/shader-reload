@@ -1,6 +1,7 @@
 var listener = require('./lib/websocket-listener');
 var Shader = require('./lib/Shader');
 var errors = require('./lib/error-reporter');
+var receiver = require('./receiver');
 
 var shaderMap = {};
 
@@ -10,7 +11,7 @@ function createShader (opt, filename) {
   var shader = new Shader(opt);
   if (shaderMap && typeof filename === 'string') {
     if (filename in shaderMap) {
-      console.warn('Shader already exists in cache:', filename);
+      // File already exists in cache, we could warn the user...?
     }
     shaderMap[filename] = shader;
   }
@@ -20,10 +21,14 @@ function createShader (opt, filename) {
 function reloadShaders (updates) {
   if (!shaderMap) return;
   updates = (Array.isArray(updates) ? updates : [ updates ]).filter(Boolean);
+  if (updates.length === 0) return;
+
+  var hasTouched = false;
+  var hasChanged = false;
   updates.forEach(function (update) {
     var file = update.file;
     if (!file) {
-      console.warn('no file field in update');
+      // No file field, just skip this...
       return;
     }
     if (file in shaderMap) {
@@ -33,13 +38,21 @@ function reloadShaders (updates) {
       shader.vertex = update.vertex || '';
       shader.fragment = update.fragment || '';
       shader.emit('touch');
+      hasTouched = true;
       if (oldVertex !== shader.vertex || oldFragment !== shader.fragment) {
         shader.emit('change');
+        shader.version++;
+        hasChanged = true;
       }
     } else {
-      console.log('File is not yet attached', file);
+      // We have a file field but somehow it didn't end up in our shader map...
+      // Maybe user isn't using the reload-shader function?
     }
   });
+
+  // broadcast change events
+  if (hasTouched) receiver.emit('touch');
+  if (hasChanged) receiver.emit('change');
 }
 
 // Listen for LiveReload connections during development
