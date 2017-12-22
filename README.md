@@ -164,6 +164,14 @@ This event is triggered after all shaders have been updated, allowing you to rea
 
 Clone this repo and `npm install`, then `npm run example-three` (ThreeJS) or `npm run example-regl` (regl). Edit the files inside the [example/shaders/](./examples/shaders/) folder and the shader will update without reloading the page. Saving other frontend files will reload the page as usual, restarting the application state.
 
+## Integration with Budo
+
+The `glsl-server` can be used as a drop-in replacement for `budo` commands — but you should not pass the `--live` or `-l` option to it, since it's already enabled.
+
+If you want to attach this functionality to your own project, and you don't want to swap the development server, you can look at how it's implemented in [bin/dev.js](./bin/dev.js) and [bin/budo-attach.js](./bin/budo-attach.js).
+
+For a quick and simple setup that still provides the flexibility of using budo, i.e. with your own transforms and options, see [this gist](https://gist.github.com/mattdesl/ad4542d7a21e920b8ad0fba0c8e8e947) for details.
+
 ## Why not Webpack/Parcel HMR?
 
 In my experience, trying to apply Hot Module Replacement to an entire WebGL application leads to a lot of subtle issues because GL relies so heavily on state, GPU memory, performance, etc.
