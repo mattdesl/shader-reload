@@ -11,6 +11,10 @@ function LiveShader (shader, parameters) {
   parameters = parameters || {};
   THREE.RawShaderMaterial.call(this, parameters);
   this.shader = shader;
+  if (this.shader) {
+    this.vertexShader = this.shader.vertex;
+    this.fragmentShader = this.shader.fragment;
+  }
   this.shaderVersion = this.shader ? this.shader.version : undefined;
   this._needsUpdate = true;
 }
