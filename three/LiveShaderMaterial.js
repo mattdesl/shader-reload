@@ -30,7 +30,7 @@ LiveShaderMaterial.prototype.copy = function (source) {
 
 // Check if shader is out of date, if so we should mark this as dirty
 LiveShaderMaterial.prototype.isShaderUpdate = function () {
-  const shader = this.shader;
+  var shader = this.shader;
 
   var dirty = false;
   if (isDevelopment) {
