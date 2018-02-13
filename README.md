@@ -34,7 +34,7 @@ console.log(shader.vertex, shader.fragment);
 
 shader.on('change', () => {
   // New source
-  console.log('Shader updated:', shader.vertex, shader.fragmetn);
+  console.log('Shader updated:', shader.vertex, shader.fragment);
 });
 ```
 
