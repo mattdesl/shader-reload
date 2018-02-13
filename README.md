@@ -176,6 +176,12 @@ npm i browserify --save-dev
 npx browserify index.js -t glslify > bundle.js
 ```
 
+## Use with ThreeJS
+
+This module includes two Three.js utility classes for convenience in the [three](./three) folder, `LiveShaderMaterial` and `LiveRawShaderMaterial`.
+
+Read more about it [here](./three/README.md).
+
 ## API Doc
 
 #### `shader = require('reload-shader')(shaderSource)`
