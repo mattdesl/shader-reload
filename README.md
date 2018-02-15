@@ -8,18 +8,18 @@ This is an experimental interface for live shader reloading in ThreeJS, [regl](h
 
 > See [this tweet](https://twitter.com/mattdesl/status/944246533016424453) for a longer video.
 
-This also includes `glsl-server`, a drop-in replacement for [budo](https://www.npmjs.com/package/budo) that supports live-reloading GLSL with `glslify` built-in.
+You might also be interested in [shader-reload-cli](https://github.com/mattdesl/shader-reload-cli), a development server (drop-in replacement for [budo](https://www.npmjs.com/package/budo)) that supports live-reloading GLSL with `glslify` built-in.
 
-The code here could probably be adapted to work with other environments, e.g. Webpack/Express.
+The code here could _probably_ be adapted to work with other environments, e.g. Webpack/Express.
 
 ## Quick Start
 
-This module includes `glsl-server`, a simple development server to get you up and running. For advanced projects, you may choose to use another [development tool](#development-tool).
+A quick way to test this is with the CLI version of this module, [shader-reload-cli](https://github.com/mattdesl/shader-reload-cli). This is a simple development server to get you up and running. For advanced projects, you may choose to use another [development tool](#development-tool).
 
 From your project folder using `node@8.4.x` and `npm@5.3.x` or higher:
 
 ```sh
-npm install shader-reload --save-dev
+npm install shader-reload-cli -g
 ```
 
 Add a simple `index.js` script like this:
@@ -53,10 +53,10 @@ Now you can start the development server and begin editing & developing your app
 
 ```sh
 # opens the browser to localhost:9966/
-npx glsl-server src/index.js --open
+shader-reload-cli src/index.js --open
 ```
 
-> :bulb: Under the hood, the `glsl-server` script is running [budo](https://www.npmjs.com/package/budo) with [glslify](https://www.npmjs.com/package/glslify), so you can pass other options like `--dir` and `--port`. You can also add glslify transforms like [glslify-hex](https://www.npmjs.com/package/glslify-hex) to your package.json and they will get picked up by `glsl-server`.
+> :bulb: Under the hood, the `shader-reload-cli` script is running [budo](https://www.npmjs.com/package/budo) with [glslify](https://www.npmjs.com/package/glslify), so you can pass other options like `--dir` and `--port`. You can also add glslify transforms like [glslify-hex](https://www.npmjs.com/package/glslify-hex) to your package.json and they will get picked up by `shader-reload-cli`.
 
 ## Details
 
@@ -121,13 +121,13 @@ The examples include a [LiveShaderMaterial](./example/materials/LiveShaderMateri
 
 Other than the `.shader.js` modules, you also need to have this set up with your development tool. You have a few options:
 
-- Use the `glsl-server` script that comes with this module, it already includes glslify and shader reloading out of the box
-- Attach shader reloading to [budo](https://www.npmjs.com/package/budo), see [this gist](https://gist.github.com/mattdesl/ad4542d7a21e920b8ad0fba0c8e8e947) for instructions or look through the implementation in [./bin](./bin)
+- Use `shader-reload-cli`, it already includes glslify and shader reloading out of the box
+- Attach shader reloading to [budo](https://www.npmjs.com/package/budo), see [this gist](https://gist.github.com/mattdesl/ad4542d7a21e920b8ad0fba0c8e8e947) for instructions
 - Attach shader reloading to your existing development environment using WebSockets and broadcasting `'shader-reload'` events to clients
 
 ### Browserify Transform
 
-If you are using `glsl-server`, it already includes the transforms needed for shader reloading and glslify.
+If you are using `shader-reload-cli`, it already includes the transforms needed for shader reloading and glslify.
 
 If you are using budo directly or your own browserify scripts, you will need to include a source transform, e.g. `-t shader-reload/transform`, or in options:
 
@@ -140,7 +140,7 @@ If you are using budo directly or your own browserify scripts, you will need to 
 
 ## Use with glslify
 
-The `glsl-server` script already includes glslify support out of the box, so you can organize your shaders into their own files and require glsl modules from npm:
+The `shader-reload-cli` script already includes glslify support out of the box, so you can organize your shaders into their own files and require glsl modules from npm:
 
 `blue.shader.js`
 
@@ -166,7 +166,7 @@ The same goes for requiring `glslify`.
 
 During production or when publishing the source to a non-development environment (i.e. without WebSockets), simply omit the `shader-reload` transform. Shaders will not change after construction.
 
-If you are using `glsl-server` and looking for a final JavaScript file for your static site, you can use browserify:
+If you are using `shader-reload-cli` and looking for a final JavaScript file for your static site, you can use browserify:
 
 ```sh
 # install browserify
