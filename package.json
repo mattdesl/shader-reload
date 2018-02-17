@@ -1,6 +1,6 @@
 {
   "name": "shader-reload",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A few tools for GLSL shader reloading at runtime.",
   "main": "./wrapper.js",
   "license": "MIT",
